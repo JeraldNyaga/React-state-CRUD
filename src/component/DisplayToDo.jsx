@@ -8,7 +8,7 @@ function DisplayToDo() {
   const [newToDoDescription, setNewToDoDescription] = useState("");
 
   const toDos = todos.map((item) => {
-    return <TodoItem key={item.id} item={item} handleDelete={deleteItem}/>;
+    return <TodoItem key={item.id} item={item} handleDelete={deleteItem} handleUpdate={updateItem} checkedToDo={item.completed}/>;
   });
 
   function addToDo(e) {
@@ -23,6 +23,20 @@ function DisplayToDo() {
   function deleteItem(id){
     const newTodos = todos.filter(todo => todo.id !== id)
     setTodos(newTodos)
+  }
+
+  function updateItem(id, checkedStatus){
+    const item = todos.map(todo => {
+      if (todo.id === id){
+        return {
+          ...todo,
+          completed: !checkedStatus
+        }
+      } else{
+        return todo
+      }
+    })
+    setTodos(item)
   }
   return (
     <>
