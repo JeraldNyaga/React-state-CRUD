@@ -7,7 +7,7 @@ export const myTodos = [
 function nextId(){
     let id = 3
     return function(){
-        return id++
+        return ++id
     }
 }
 

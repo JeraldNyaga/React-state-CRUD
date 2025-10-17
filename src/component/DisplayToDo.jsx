@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { myTodos, idGen } from "../todo";
-import Form from "./Form";
+import FormToDo from "./Form";
 import TodoItem from "./TodoItem";
 
 function DisplayToDo() {
@@ -8,9 +8,9 @@ function DisplayToDo() {
   const [newToDoDescription, setNewToDoDescription] = useState("");
 
   const toDos = todos.map((item) => {
-    return <TodoItem key={item.id} item={item} />;
+    return <TodoItem key={item.id} item={item} handleDelete={deleteItem}/>;
   });
-  
+
   function addToDo(e) {
     e.preventDefault();
     const newToDo = {
@@ -18,15 +18,23 @@ function DisplayToDo() {
       description: newToDoDescription,
       completed: false,
     };
+    setTodos([...todos, newToDo]);
   }
+  function deleteItem(id){
+    const newTodos = todos.filter(todo => todo.id !== id)
+    setTodos(newTodos)
+  }
+  return (
+    <>
+      <FormToDo
+        handleAddToDo={addToDo}
+        description={newToDoDescription}
+        handleDescription={(e) => setNewToDoDescription(e.target.value)}
+      />
+      <h2 className="text-xl ml-1 font-semibold">My Todos</h2>
+      {toDos}
+    </>
+  );
 }
-
-return (
-  <>
-    <Form />
-    <h2 className="text-xl ml-1 font-semibold">My Todos</h2>
-    {toDos}
-  </>
-);
 
 export default DisplayToDo;
