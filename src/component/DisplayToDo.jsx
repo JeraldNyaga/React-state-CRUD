@@ -3,24 +3,14 @@ import { myTodos, idGen } from "../todo";
 import Form from "./Form";
 import TodoItem from "./TodoItem";
 
-function DisplayToDo({ toDoItems }) {
-  const toDos = toDoItems.map((item) => {
-    return <TodoItem key={item.id} item={item} />;
-  });
-  return (
-    <>
-      <Form />
-      <h2 className="text-xl ml-1 font-semibold">My Todos</h2>
-      {toDos}
-    </>
-  );
-}
-
-
-function addToDo() {
+function DisplayToDo() {
   const [todos, setTodos] = useState(myTodos);
   const [newToDoDescription, setNewToDoDescription] = useState("");
 
+  const toDos = todos.map((item) => {
+    return <TodoItem key={item.id} item={item} />;
+  });
+  
   function addToDo(e) {
     e.preventDefault();
     const newToDo = {
@@ -29,8 +19,14 @@ function addToDo() {
       completed: false,
     };
   }
-  return;
 }
 
+return (
+  <>
+    <Form />
+    <h2 className="text-xl ml-1 font-semibold">My Todos</h2>
+    {toDos}
+  </>
+);
 
 export default DisplayToDo;
